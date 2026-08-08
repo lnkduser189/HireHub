@@ -12,25 +12,21 @@ import About from "./pages/About";
 import "./App.css";
 
 function App() {
-  return (
-    <BrowserRouter>
-      <Navbar />
+return ( <BrowserRouter> <Navbar />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
 
-        <Route path="/jobs" element={<Jobs />} />
+  <Routes>
+    <Route path="/" element={<Home />} />
+    <Route path="/jobs" element={<Jobs />} />
+    <Route path="/login" element={<Login />} />
+    <Route path="/register" element={<Register />} />
+    <Route path="/companies" element={<Companies />} />
+    <Route path="/about" element={<About />} />
+  </Routes>
+</BrowserRouter>
 
-        <Route path="/login" element={<Login />} />
 
-        <Route path="/register" element={<Register />} />
-
-        <Route path="/companies" element={<Companies />} />
-
-        <Route path="/about" element={<About />} />
-      </Routes>
-    </BrowserRouter>
-  );
+);
 }
 
 export default App;
