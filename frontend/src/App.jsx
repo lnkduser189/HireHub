@@ -1,71 +1,35 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Navbar from "./components/Navbar";
+
+import Home from "./pages/Home";
+import Jobs from "./pages/Jobs";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Companies from "./pages/Companies";
+import About from "./pages/About";
+
 import "./App.css";
 
 function App() {
   return (
-    <div className="app">
+    <BrowserRouter>
       <Navbar />
 
-      <main>
-        <section className="hero">
-          <div className="hero-content">
-            <p className="hero-tag">🚀 Find your dream career</p>
+      <Routes>
+        <Route path="/" element={<Home />} />
 
-            <h1>
-              Find the right job.
-              <br />
-              Build your <span>future.</span>
-            </h1>
+        <Route path="/jobs" element={<Jobs />} />
 
-            <p className="hero-description">
-              Discover thousands of opportunities from top companies
-              and take the next step in your career.
-            </p>
+        <Route path="/login" element={<Login />} />
 
-            <div className="search-box">
-              <input
-                type="text"
-                placeholder="Job title, skills or keywords"
-              />
+        <Route path="/register" element={<Register />} />
 
-              <input
-                type="text"
-                placeholder="Location"
-              />
+        <Route path="/companies" element={<Companies />} />
 
-              <button>Search Jobs</button>
-            </div>
-
-            <p className="popular">
-              Popular: React Developer · Java Developer · Data Analyst
-            </p>
-          </div>
-        </section>
-
-        <section className="features">
-          <div className="feature">
-            <h3>🔎 Find Jobs</h3>
-            <p>
-              Search and filter thousands of job opportunities.
-            </p>
-          </div>
-
-          <div className="feature">
-            <h3>🏢 Top Companies</h3>
-            <p>
-              Discover opportunities from leading companies.
-            </p>
-          </div>
-
-          <div className="feature">
-            <h3>📄 Easy Applications</h3>
-            <p>
-              Apply for jobs and track your applications easily.
-            </p>
-          </div>
-        </section>
-      </main>
-    </div>
+        <Route path="/about" element={<About />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
