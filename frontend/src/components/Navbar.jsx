@@ -1,20 +1,20 @@
 function Navbar() {
   return (
-    <nav>
-      <div>
-        <h2>HireHub</h2>
+    <nav className="navbar">
+      <div className="logo">
+        Hire<span>Hub</span>
       </div>
 
-      <div>
+      <div className="nav-links">
         <a href="/">Home</a>
         <a href="/jobs">Jobs</a>
         <a href="/companies">Companies</a>
         <a href="/about">About</a>
       </div>
 
-      <div>
-        <button>Login</button>
-        <button>Register</button>
+      <div className="nav-buttons">
+        <button className="login-btn">Login</button>
+        <button className="register-btn">Register</button>
       </div>
     </nav>
   );
