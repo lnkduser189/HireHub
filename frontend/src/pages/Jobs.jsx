@@ -9,6 +9,9 @@ const [error, setError] = useState("");
 const [keyword, setKeyword] = useState("");
 const [location, setLocation] = useState("");
 const [jobType, setJobType] = useState("all");
+const [experience, setExperience] = useState("all");
+const [salary, setSalary] = useState("all");
+
 
 useEffect(() => {
 fetch("http://localhost:5000/api/jobs")
@@ -64,11 +67,51 @@ const matchesLocation =
   jobLocation.includes(locationText);
 
 const matchesType =
-  selectedType === "all" ||
-  type === selectedType;
+  jobType === "all" ||
+  job.type.toLowerCase() === jobType.toLowerCase();
 
-return matchesKeyword && matchesLocation && matchesType;
+const matchesExperience =
+  experience === "all" ||
+  job.experience.toLowerCase() === experience.toLowerCase();
 
+const matchesSalary = (() => {
+  if (salary === "all") {
+    return true;
+  }
+
+  const salaryNumbers = job.salary.match(/\d+(\.\d+)?/g);
+
+  if (!salaryNumbers || salaryNumbers.length === 0) {
+    return false;
+  }
+
+  const minSalary = Number(salaryNumbers[0]);
+  const maxSalary =
+    salaryNumbers.length > 1
+      ? Number(salaryNumbers[1])
+      : minSalary;
+
+  if (salary === "3-5") {
+    return minSalary <= 5 && maxSalary >= 3;
+  }
+
+  if (salary === "5-10") {
+    return minSalary <= 10 && maxSalary >= 5;
+  }
+
+  if (salary === "10+") {
+    return maxSalary >= 10;
+  }
+
+  return true;
+})();
+return (
+  matchesKeyword &&
+  matchesLocation &&
+  matchesType &&
+  matchesExperience &&
+  matchesSalary
+);
 
 });
 
@@ -131,25 +174,33 @@ return (
         Experience
       </label>
 
-      <select id="experience">
-        <option value="all">Any Experience</option>
-        <option value="Fresher">Fresher</option>
-        <option value="1-3">1-3 Years</option>
-        <option value="3-5">3-5 Years</option>
-        <option value="5+">5+ Years</option>
-      </select>
+      <select
+  id="experience"
+  value={experience}
+  onChange={(event) => setExperience(event.target.value)}
+>
+  <option value="all">Any Experience</option>
+  <option value="Fresher">Fresher</option>
+  <option value="1-3">1-3 Years</option>
+  <option value="3-5">3-5 Years</option>
+  <option value="5+">5+ Years</option>
+</select>
 
       {/* Salary */}
       <label htmlFor="salary">
         Salary
       </label>
 
-      <select id="salary">
-        <option value="all">Any Salary</option>
-        <option value="3-5">₹3-5 LPA</option>
-        <option value="5-10">₹5-10 LPA</option>
-        <option value="10+">₹10+ LPA</option>
-      </select>
+      <select
+  id="salary"
+  value={salary}
+  onChange={(event) => setSalary(event.target.value)}
+>
+  <option value="all">Any Salary</option>
+  <option value="3-5">₹3-5 LPA</option>
+  <option value="5-10">₹5-10 LPA</option>
+  <option value="10+">₹10+ LPA</option>
+</select>
     </div>
 
     {/* Jobs List */}

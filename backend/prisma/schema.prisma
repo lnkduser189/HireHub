@@ -26,6 +26,7 @@ model Job {
   location    String
   type        String
   salary      String
+  experience String @default("Fresher")
   description String
   createdAt   DateTime @default(now())
 
