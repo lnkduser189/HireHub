@@ -134,12 +134,18 @@ body {
 
 .search-box input {
   flex: 1;
-  border: none;
+  border: 1px solid #e2e8f0;
   outline: none;
   padding: 15px;
   font-size: 15px;
+  background: #ffffff;
+  color: #1e293b;
+  border-radius: 6px;
 }
 
+.search-box input::placeholder {
+  color: #94a3b8;
+}
 .search-box button {
   border: none;
   background: #2563eb;
@@ -391,6 +397,12 @@ body {
   border: 1px solid #e2e8f0;
   border-radius: 6px;
   outline: none;
+  background: #ffffff;
+  color: #1e293b;
+}
+
+.jobs-search input::placeholder {
+  color: #94a3b8;
 }
 
 .jobs-search button {
