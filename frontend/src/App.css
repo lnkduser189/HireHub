@@ -243,10 +243,22 @@ body {
 }
 
 .page form input {
+  width: 100%;
   padding: 14px;
   border: 1px solid #cbd5e1;
   border-radius: 7px;
   font-size: 15px;
+  background: #ffffff;
+  color: #1e293b;
+  outline: none;
+}
+
+.page form input::placeholder {
+  color: #94a3b8;
+}
+
+.page form input:focus {
+  border-color: #2563eb;
 }
 
 .page form button {
@@ -571,4 +583,17 @@ body {
     flex-direction: column;
     gap: 8px;
   }
+}
+/* Consistent input styling */
+
+input,
+select,
+textarea {
+  background-color: #ffffff;
+  color: #1e293b;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #94a3b8;
 }
