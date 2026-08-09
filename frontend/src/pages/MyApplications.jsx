@@ -111,20 +111,14 @@ function MyApplications() {
       // Remove cancelled application from the screen
       setApplications((currentApplications) =>
         currentApplications.filter(
-          (application) =>
-            application.id !== applicationId
+          (application) => application.id !== applicationId
         )
       );
-
     } catch (error) {
-      console.error(
-        "Cancel application error:",
-        error
-      );
+      console.error("Cancel application error:", error);
 
       setError(
-        error.message ||
-          "Unable to cancel application."
+        error.message || "Unable to cancel application."
       );
     } finally {
       setCancellingId(null);
@@ -135,9 +129,7 @@ function MyApplications() {
   if (loading) {
     return (
       <div className="my-applications-page">
-        <div className="loading-message">
-          Loading your applications...
-        </div>
+        <p>Loading your applications...</p>
       </div>
     );
   }
@@ -159,7 +151,6 @@ function MyApplications() {
 
       {/* Header */}
       <div className="my-applications-header">
-
         <div>
           <p className="page-label">
             CANDIDATE PORTAL
@@ -174,7 +165,6 @@ function MyApplications() {
         </div>
 
         <div className="application-count">
-
           <strong>
             {applications.length}
           </strong>
@@ -184,11 +174,8 @@ function MyApplications() {
               ? "Application"
               : "Applications"}
           </span>
-
         </div>
-
       </div>
-
 
       {/* Error message */}
       {error && applications.length > 0 && (
@@ -197,10 +184,8 @@ function MyApplications() {
         </div>
       )}
 
-
       {/* No Applications */}
       {applications.length === 0 ? (
-
         <div className="my-applications-empty">
 
           <div className="empty-icon">
@@ -221,7 +206,6 @@ function MyApplications() {
           </Link>
 
         </div>
-
       ) : (
 
         <div className="my-applications-list">
@@ -252,7 +236,6 @@ function MyApplications() {
 
                 </div>
 
-
                 {/* Status */}
                 <span
                   className={`application-status ${getStatusClass(
@@ -264,12 +247,10 @@ function MyApplications() {
 
               </div>
 
-
               {/* Job Details */}
               <div className="application-details">
 
                 <div className="application-detail">
-
                   <span>
                     Location
                   </span>
@@ -277,12 +258,9 @@ function MyApplications() {
                   <strong>
                     📍 {application.job.location}
                   </strong>
-
                 </div>
 
-
                 <div className="application-detail">
-
                   <span>
                     Job Type
                   </span>
@@ -290,12 +268,9 @@ function MyApplications() {
                   <strong>
                     💼 {application.job.type}
                   </strong>
-
                 </div>
 
-
                 <div className="application-detail">
-
                   <span>
                     Salary
                   </span>
@@ -303,12 +278,9 @@ function MyApplications() {
                   <strong>
                     💰 {application.job.salary}
                   </strong>
-
                 </div>
 
-
                 <div className="application-detail">
-
                   <span>
                     Applied On
                   </span>
@@ -318,11 +290,9 @@ function MyApplications() {
                       application.appliedAt
                     ).toLocaleDateString()}
                   </strong>
-
                 </div>
 
               </div>
-
 
               {/* Footer */}
               <div className="application-card-footer">
@@ -337,7 +307,6 @@ function MyApplications() {
 
               </div>
 
-
               {/* Actions */}
               <div className="application-actions">
 
@@ -349,26 +318,27 @@ function MyApplications() {
                   View Job
                 </Link>
 
-
                 {/* Cancel Application */}
-                <button
-                  type="button"
-                  className="cancel-application-btn"
-                  onClick={() =>
-                    handleCancelApplication(
-                      application.id
-                    )
-                  }
-                  disabled={
-                    cancellingId ===
-                    application.id
-                  }
-                >
-                  {cancellingId ===
-                  application.id
-                    ? "Cancelling..."
-                    : "Cancel Application"}
-                </button>
+                {!["Selected", "Rejected"].includes(
+                  application.status
+                ) && (
+                  <button
+                    type="button"
+                    className="cancel-application-btn"
+                    onClick={() =>
+                      handleCancelApplication(
+                        application.id
+                      )
+                    }
+                    disabled={
+                      cancellingId === application.id
+                    }
+                  >
+                    {cancellingId === application.id
+                      ? "Cancelling..."
+                      : "Cancel Application"}
+                  </button>
+                )}
 
               </div>
 
@@ -385,4 +355,3 @@ function MyApplications() {
 }
 
 export default MyApplications;
-
