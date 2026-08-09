@@ -1,4 +1,4 @@
-const roleMiddleware = (...allowedRoles) => {
+function roleMiddleware(requiredRole) {
   return (req, res, next) => {
     if (!req.user) {
       return res.status(401).json({
@@ -6,7 +6,7 @@ const roleMiddleware = (...allowedRoles) => {
       });
     }
 
-    if (!allowedRoles.includes(req.user.role)) {
+    if (req.user.role !== requiredRole) {
       return res.status(403).json({
         message: "Access denied",
       });
@@ -14,6 +14,6 @@ const roleMiddleware = (...allowedRoles) => {
 
     next();
   };
-};
+}
 
 export default roleMiddleware;

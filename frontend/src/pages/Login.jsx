@@ -40,13 +40,19 @@ try {
 
   // Save JWT token
   localStorage.setItem("token", data.token);
-localStorage.setItem("user", JSON.stringify(data.user));
 
-window.dispatchEvent(new Event("authChange"));
+  // Save logged-in user
+  localStorage.setItem("user", JSON.stringify(data.user));
 
-setMessage("Login successful!");
+  // Update Navbar immediately
+  window.dispatchEvent(new Event("authChange"));
 
-navigate("/jobs");
+  setMessage("Login successful!");
+
+  // Redirect after successful login
+  setTimeout(() => {
+    navigate("/jobs");
+  }, 500);
 
 } catch (error) {
   console.error("Login error:", error);
@@ -55,44 +61,94 @@ navigate("/jobs");
   setLoading(false);
 }
 
-
 };
 
 return ( <div className="login-page">
 
 
-  <h1>Login</h1>
+  <div className="login-card">
 
-  <form onSubmit={handleLogin}>
+    <div className="login-header">
+      <h1>
+        Welcome to <span>HireHub</span>
+      </h1>
 
-    <input
-      type="email"
-      placeholder="Email"
-      value={email}
-      onChange={(event) => setEmail(event.target.value)}
-      required
-    />
+      <p>
+        Login to continue your job search
+      </p>
+    </div>
 
-    <input
-      type="password"
-      placeholder="Password"
-      value={password}
-      onChange={(event) => setPassword(event.target.value)}
-      required
-    />
-
-    <button
-      type="submit"
-      disabled={loading}
+    <form
+      className="login-form"
+      onSubmit={handleLogin}
     >
-      {loading ? "Logging in..." : "Login"}
-    </button>
 
-  </form>
+      <div className="form-group">
+        <label htmlFor="email">
+          Email Address
+        </label>
 
-  {message && (
-    <p>{message}</p>
-  )}
+        <input
+          id="email"
+          type="email"
+          placeholder="Enter your email"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+          required
+        />
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="password">
+          Password
+        </label>
+
+        <input
+          id="password"
+          type="password"
+          placeholder="Enter your password"
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+          required
+        />
+      </div>
+
+      <button
+        type="submit"
+        className="login-submit-btn"
+        disabled={loading}
+      >
+        {loading ? "Logging in..." : "Login"}
+      </button>
+
+      {message && (
+        <p
+          className={`login-message ${
+            message.includes("successful")
+              ? "success"
+              : "error"
+          }`}
+        >
+          {message}
+        </p>
+      )}
+
+    </form>
+
+    <div className="login-footer">
+      <p>
+        Don't have an account?
+      </p>
+
+      <button
+        type="button"
+        onClick={() => navigate("/register")}
+      >
+        Create an account
+      </button>
+    </div>
+
+  </div>
 
 </div>
 

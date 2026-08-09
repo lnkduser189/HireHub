@@ -553,7 +553,76 @@ appliedAt: "desc",
 
 }
 );
+// ==========================================
+// CANCEL CANDIDATE APPLICATION
+// ==========================================
 
+app.delete(
+  "/api/applications/:id",
+  authMiddleware,
+  roleMiddleware("candidate"),
+  async (req, res) => {
+    try {
+      const applicationId = parseInt(req.params.id);
+
+      if (isNaN(applicationId)) {
+        return res.status(400).json({
+          message: "Invalid application ID",
+        });
+      }
+
+      // Find the application
+      const application =
+        await prisma.application.findUnique({
+          where: {
+            id: applicationId,
+          },
+        });
+
+      // Application doesn't exist
+      if (!application) {
+        return res.status(404).json({
+          message: "Application not found",
+        });
+      }
+
+      // Make sure the candidate owns this application
+      if (
+        application.candidateId !==
+        req.user.userId
+      ) {
+        return res.status(403).json({
+          message:
+            "You can only cancel your own applications",
+        });
+      }
+
+      
+      
+      // Delete application
+      await prisma.application.delete({
+        where: {
+          id: applicationId,
+        },
+      });
+
+      res.json({
+        message: "Application cancelled successfully",
+      });
+
+    } catch (error) {
+      console.error(
+        "Cancel application error:",
+        error
+      );
+
+      res.status(500).json({
+        message:
+          "Failed to cancel application",
+      });
+    }
+  }
+);
 // ==========================================
 // RECRUITER APPLICATIONS
 // ==========================================

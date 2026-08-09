@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 
 import Home from "./pages/Home";
 import Jobs from "./pages/Jobs";
+import JobDetails from "./pages/JobDetails";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Companies from "./pages/Companies";
@@ -19,74 +20,101 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import "./App.css";
 
 function App() {
-return ( <BrowserRouter> <Navbar />
+  return (
+    <BrowserRouter>
 
+      <Navbar />
 
-  <Routes>
-    {/* Public routes */}
-    <Route path="/" element={<Home />} />
+      <Routes>
 
-    <Route path="/jobs" element={<Jobs />} />
+        <Route
+          path="/"
+          element={<Home />}
+        />
 
-    <Route path="/login" element={<Login />} />
+        <Route
+          path="/jobs"
+          element={<Jobs />}
+        />
 
-    <Route path="/register" element={<Register />} />
+        <Route
+          path="/jobs/:id"
+          element={<JobDetails />}
+        />
 
-    <Route path="/companies" element={<Companies />} />
+        <Route
+          path="/login"
+          element={<Login />}
+        />
 
-    <Route path="/about" element={<About />} />
+        <Route
+          path="/register"
+          element={<Register />}
+        />
 
-    {/* Candidate protected route */}
-    <Route
-      path="/my-applications"
-      element={
-        <ProtectedRoute role="candidate">
-          <MyApplications />
-        </ProtectedRoute>
-      }
-    />
+        <Route
+          path="/companies"
+          element={<Companies />}
+        />
 
-    {/* Recruiter protected routes */}
-    <Route
-      path="/recruiter/dashboard"
-      element={
-        <ProtectedRoute role="recruiter">
-          <RecruiterDashboard />
-        </ProtectedRoute>
-      }
-    />
+        <Route
+          path="/about"
+          element={<About />}
+        />
 
-    <Route
-      path="/recruiter/jobs/new"
-      element={
-        <ProtectedRoute role="recruiter">
-          <CreateJob />
-        </ProtectedRoute>
-      }
-    />
+        {/* Candidate protected route */}
 
-    <Route
-      path="/recruiter/jobs/edit/:id"
-      element={
-        <ProtectedRoute role="recruiter">
-          <EditJob />
-        </ProtectedRoute>
-      }
-    />
+        <Route
+          path="/my-applications"
+          element={
+            <ProtectedRoute role="candidate">
+              <MyApplications />
+            </ProtectedRoute>
+          }
+        />
 
-    <Route
-      path="/recruiter/applications"
-      element={
-        <ProtectedRoute role="recruiter">
-          <RecruiterApplications />
-        </ProtectedRoute>
-      }
-    />
-  </Routes>
-</BrowserRouter>
+        {/* Recruiter protected routes */}
 
+        <Route
+          path="/recruiter/dashboard"
+          element={
+            <ProtectedRoute role="recruiter">
+              <RecruiterDashboard />
+            </ProtectedRoute>
+          }
+        />
 
-);
+        <Route
+          path="/recruiter/jobs/new"
+          element={
+            <ProtectedRoute role="recruiter">
+              <CreateJob />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/recruiter/jobs/edit/:id"
+          element={
+            <ProtectedRoute role="recruiter">
+              <EditJob />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/recruiter/applications"
+          element={
+            <ProtectedRoute role="recruiter">
+              <RecruiterApplications />
+            </ProtectedRoute>
+          }
+        />
+
+      </Routes>
+
+    </BrowserRouter>
+  );
 }
 
 export default App;
